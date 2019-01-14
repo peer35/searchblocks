@@ -178,6 +178,7 @@ class AdminsController < ApplicationController
   def updateall
     #add all admins blocks to the solr index with the admin id
     #loop through admins
+    # Should have been a database migration...
     respond_to do |format|
       Admin.all.each do |admin|
         c = JSON::parse(admin.creators)
@@ -265,7 +266,7 @@ class AdminsController < ApplicationController
       if searchblocksystems[n] == ''
         sbs[n] = sb
       else
-        sbs[n] = searchblocksystems[n] + ': ' + sb
+        sbs[n] = searchblocksystems[n] + ':: ' + sb
       end
       n = n + 1
     end
@@ -277,9 +278,9 @@ class AdminsController < ApplicationController
     searchblockcontent = []
     n = 0
     searchblocks.split(';; ').each do |searchblock|
-      if searchblock.split(': ').length > 1
-        searchblocksystem[n] = searchblock.split(': ')[0]
-        searchblockcontent[n] = searchblock.split(': ')[1]
+      if searchblock.split(':: ').length > 1
+        searchblocksystem[n] = searchblock.split(':: ')[0]
+        searchblockcontent[n] = searchblock.split(':: ')[1]
       else
         searchblocksystem[n] = ''
         searchblockcontent[n] = searchblock

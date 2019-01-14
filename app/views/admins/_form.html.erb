@@ -47,9 +47,9 @@
           <% unless admin.searchblocks.nil? %>
               <% admin.searchblocks.split(';; ').each do |searchblock| %>
                   <%
-                    if searchblock.split(': ').length>1
-                      searchblocksystem=searchblock.split(': ')[0]
-                      searchblockcontent=searchblock.split(': ')[1]
+                    if searchblock.split(':: ').length>1
+                      searchblocksystem=searchblock.split(':: ')[0]
+                      searchblockcontent=searchblock.split(':: ')[1]
                     else
                       searchblocksystem=''
                       searchblockcontent=searchblock

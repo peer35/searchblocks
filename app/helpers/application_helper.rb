@@ -11,19 +11,21 @@ module ApplicationHelper
     arr = options[:value][0].split(';;')
     newval = ''
     arr.each do |v|
-      arr2 = v.split(': ', 2)
+      arr2 = v.split(':: ', 2)
 
       if (arr2.length > 1)
         block = arr2[0] + ':<br><pre><code>' + arr2[1] + '</code></pre>'
       else
         block = '<pre><code>' + v + '</code></pre>'
-
-
       end
       newval = newval + block
     end
 
 
     options[:value] = newval
+  end
+
+  def semicolon_join_helper args
+    args[:document][args[:field]].join('; ').html_safe
   end
 end
