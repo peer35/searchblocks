@@ -21,5 +21,9 @@
 .byebug_history
 
 /.idea
-/config/initializers/admins.rb
-/db/seeds.rb
+
+admins.rb
+seeds.rb
+
+/.svn
+/*/.svn
