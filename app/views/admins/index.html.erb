@@ -1,0 +1,65 @@
+<p id="notice"><%= notice %></p>
+<div id="content" class="col-md-9 col-sm-8">
+  <h1>Changed</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>Term</th>
+      <th>User</th>
+      <th>Event</th>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- new, updated -->
+    <% sorted = @admins.order(:updated_at).reverse %>
+    <% sorted.each do |admin| %>
+
+      <% if (admin.updated_at > (Time.now - 3.month)) && (admin.user_email != 'admin') %>
+        <tr>
+          <td><%= admin.title %></td>
+          <td><%= admin.user_email %></td>
+          <td><%= admin.versions.last.event %></td>
+          <td><%= admin.updated_at.localtime.strftime('%F %R') %></td>
+          <td><%= link_to 'edit', edit_admin_path(admin), class: "btn btn-primary" %></td>
+          <td><%= link_to 'show', {:controller => 'catalog', action: "show", id: admin.id}, class: "btn btn-primary" %></td>
+        </tr>
+      <% end %>
+
+    <% end %>
+    </tbody>
+  </table>
+
+  <h1>Deleted</h1>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Term</th>
+      <th>User</th>
+      <th>Event</th>
+      <th>Date</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- deleted -->
+    <% if !@destroyed.nil? %>
+      <% @destroyed.each do |version| %>
+
+        <tr>
+          <% if (!Admin.where(id: version.item_id).exists?) && (version.created_at > Time.now - 3.month) %>
+            <td><%= version.reify.title %></td>
+            <td><%= User.find(version.whodunnit).email %></td>
+            <td><%= version.event %></td>
+            <td><%= version.created_at.localtime.strftime('%F %R') %></td>
+            <td><%= link_to 'undo delete', {:controller => 'versions', action: "revert", id: version.id}, class: "btn btn-primary", method: :post %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,42 @@
+<% unless current_user.to_s.blank? %>
+  <% if Rails.configuration.x.admin_users_email.include? current_user.email %>
+    <div class="panel panel-default">
+      <div class="panel-heading">Admin</div>
+      <div class="panel-body">
+        <ul class="nav">
+          <li>
+            <%= link_to 'Edit this search block', {:action => "edit", :controller => "admins", :id => @document.id} %>
+          </li>
+          <li>
+            <%= link_to 'Delete this search block', {:controller => "admins", :action => "destroy", :id => @document.id}, :method => :delete, :data => {:confirm => 'Are you sure?'} %>
+          </li>
+          <!--
+              <li>
+                <%= link_to 'Reindex', {:action => "indexall", :controller => "admins"} %>
+              </li>
+              -->
+        </ul>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<%= render :partial => 'show_tools' %>
+<% unless @document.more_like_this.empty? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">More Like This</div>
+    <div class="panel-body">
+      <%= render :collection => @document.more_like_this, :partial => 'show_more_like_this', :as => :document %>
+    </div>
+  </div>
+<% end %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">License</div>
+  <div class="panel-body license">
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"/></a><br/><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative
+    Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+  </div>
+</div>
+
+

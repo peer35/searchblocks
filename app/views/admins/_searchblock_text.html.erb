@@ -1,0 +1,14 @@
+<div class="blockForm">
+  <%= label_tag "Block" %>
+  <table>
+    <tr>
+      <td><%= text_field_tag "searchblocksystems[]", searchblocksystem, class: "form-control" %></td>
+
+    </tr>
+    <tr>
+      <td><%= text_area_tag "searchblocks[]", searchblockcontent, class: "form-control" %> </td>
+    </tr>
+  </table>
+  <a href="javascript:" onclick="removeBlock($(this))" class="remove-block"> remove </a>
+  <br><br>
+</div>

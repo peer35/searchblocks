@@ -1,0 +1,6 @@
+en:
+  blacklight:
+    application_name: 'bmi-online search blocks'
+
+  admin:
+    need_login: 'Please log in as an administrator to manage the search blocks. '

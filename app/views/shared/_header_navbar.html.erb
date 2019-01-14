@@ -1,0 +1,54 @@
+<div id="header-navbar" class="navbar navbar-inverse navbar-static-top" role="navigation">
+  <!-- BEGIN .row -->
+  <div id="contact-info">
+    <div class="row">
+
+      <!-- BEGIN .content -->
+      <div class="content">
+
+        <div class="align-left">
+
+          <span class="contact-address"><i class="fa fa-map-marker"></i> p/a KNVI Verenigingsbureau, Ambachtsstraat 15, 3861 RH Nijkerk</span>
+
+          <span class="contact-email text-right"><i class="fa fa-envelope"></i> <a class="link-email" href="mailto:bestuur@bmi-online.nl" target="_blank">bestuur@bmi-online.nl</a></span>
+
+          <span class="contact-phone text-right"><i class="fa fa-phone"></i> 033- 2473427</span>
+
+        </div>
+        <!-- END .content -->
+      </div>
+
+      <!-- END .row -->
+    </div>
+    <!-- END #contact-info -->
+  </div>
+  <div class="<%= container_classes %>">
+
+    <% if Rails.env.development? %>
+      <p style="color: red; font-size: 2.0em; text-align: center;">This is the test site! Please go to
+        <a href="https://blocks.bmi-online.nl">https://blocks.bmi-online.nl</a></p>
+    <% end %>
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle btn collapsed" data-toggle="collapse" data-target="#user-util-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to application_name, root_path, class: "navbar-brand" %>
+      <!--<a class="navbar-brand" href="http://bmi-online.nl">bmi-online</a>-->
+    </div>
+
+    <div class="collapse navbar-collapse" id="user-util-collapse">
+      <%= render :partial => '/user_util_links' %>
+    </div>
+    <div class="header-title">Search blocks/Zoekblokken</div>
+  </div>
+</div>
+
+<div id="search-navbar" class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="<%= container_classes %>">
+    <%= render_search_bar %>
+  </div>
+</div>

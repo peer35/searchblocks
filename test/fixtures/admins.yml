@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  searchblocks: MyText
+  creators: MyString
+  notes: MyText
+  keywords: MyString
+  sid: 1
+  creationdate: 2017-07-13
+
+two:
+  title: MyString
+  searchblocks: MyText
+  creators: MyString
+  notes: MyText
+  keywords: MyString
+  sid: 1
+  creationdate: 2017-07-13

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Term:</strong>
+  <%= @admin.title %>
+</p>
+
+<p>
+  <strong>Searchblocks:</strong>
+  <%= @admin.searchblocks %>
+</p>
+
+<p>
+  <strong>Creators:</strong>
+  <%= @admin.creators %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @admin.notes %>
+</p>
+
+<p>
+  <strong>Keywords:</strong>
+  <%= @admin.keywords %>
+</p>
+
+<p>
+  <strong>Sid:</strong>
+  <%= @admin.sid %>
+</p>
+
+<p>
+  <strong>Creationdate:</strong>
+  <%= @admin.creationdate %>
+</p>
+
+<%= link_to 'Edit', edit_admin_path(@admin) %> |
+<%= link_to 'Back', admins_path %>
