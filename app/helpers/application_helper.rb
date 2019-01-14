@@ -28,4 +28,14 @@ module ApplicationHelper
   def semicolon_join_helper args
     args[:document][args[:field]].join('; ').html_safe
   end
+
+  def also_helper args
+    arr=args[:document][args[:field]]
+    urls=[]
+    arr.each do |t|
+      id=Admin.find_by(:title => t).id
+      urls.push(link_to(t, solr_document_path(id)))
+    end
+    urls.join('; ').html_safe
+  end
 end

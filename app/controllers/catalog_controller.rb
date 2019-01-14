@@ -125,6 +125,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'names_sm', label: 'Creator'
     config.add_show_field 'notes_s', label: 'Notes'
     config.add_show_field 'keyword_sm', label: 'Keywords', :link_to_search => true, :helper_method => :semicolon_join_helper
+    config.add_show_field 'also_sm', label: 'See also', :helper_method => :also_helper
     config.add_show_field 'date_s', label: 'Date'
 
 
@@ -211,3 +212,4 @@ class CatalogController < ApplicationController
 
   end
 end
+
