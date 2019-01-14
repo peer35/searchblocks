@@ -1,0 +1,104 @@
+<script>
+    $(document).ready(ready)
+    $(document).on('turbolinks:load', ready)
+    function ready() {
+        $("#kw").select2({
+            tags: true
+        })
+        $("#nm").select2({
+            tags: true
+        })
+     <% if @admin.keywords.present? %>
+        $('#kw').val(<%= @admin.keywords.html_safe %>);
+        $('#kw').trigger('change')
+     <% end %>
+     <% if @admin.creators.present? %>
+        $('#nm').val(<%= @admin.creators.html_safe %>);
+        $('#nm').trigger('change')
+     <% end %>
+        $('.select2').width('100%')
+    }
+</script>
+
+<div class="admin-form">
+  <%= form_for(admin) do |f| %>
+
+      <% if admin.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(admin.errors.count, "error") %> prohibited this block from being saved:</h2>
+
+            <ul>
+              <% admin.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label 'Term' %>
+        <%= f.text_field :title, class: "form-control"%>
+      </div>
+
+      <div class="field">
+
+        <div id="blocks_text">
+          <!-- PV should move this to the controller but don't know how to pass -->
+          <% unless admin.searchblocks.nil? %>
+              <% admin.searchblocks.split(';; ').each do |searchblock| %>
+                  <%
+                    if searchblock.split(': ').length>1
+                      searchblocksystem=searchblock.split(': ')[0]
+                      searchblockcontent=searchblock.split(': ')[1]
+                    else
+                      searchblocksystem=''
+                      searchblockcontent=searchblock
+                    end
+                  %>
+                  <%= render :partial => 'searchblock_text', :locals => {:searchblockcontent => searchblockcontent, :searchblocksystem => searchblocksystem} %>
+              <% end %>
+          <% else %>
+              <%= render :partial => 'searchblock_text', :locals => {:searchblockcontent => '', :searchblocksystem => ''} %>
+          <% end %>
+        </div>
+
+        <a id="addNewBlock" href="javascript:" onclick="addBlock()">Add Extra Block</a>
+      </div>
+
+      <div class="field">
+        <% data_for_select = @name_list.each { |k| [k, k] } %>
+        <%= f.label :creators %>
+        <%= select_tag("nm", options_for_select(data_for_select),{:include_blank => true,:multiple => true}) %>
+      </div>
+
+      <div class="field">
+        <%= f.label :notes %>
+        <%= f.text_area :notes, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <% data_for_select = @keyword_list.each { |k| [k, k] } %>
+        <%= f.label :keywords %>
+        <%= select_tag("kw", options_for_select(data_for_select),{:include_blank => true,:multiple => true}) %>
+      </div>
+
+      <div class="field">
+        <%= f.label 'Date' %>
+        <%= f.date_select :creationdate, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :admin_notes %>
+        <%= f.text_area :admin_notes, class: "form-control" %>
+        <em>Will not be shown to end-users</em>
+      </div>
+
+      <div class="actions">
+        <%= f.submit 'Submit', class: "btn btn-primary" %>
+      </div>
+  <% end %>
+</div>
+
+<div style="display: none;" id="new_block_form">
+  <%= render partial: "searchblock_text", :locals => {:searchblockcontent => '', :searchblocksystem => ''} %>
+</div>

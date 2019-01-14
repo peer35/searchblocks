@@ -1,0 +1,16 @@
+<%- headers = ["Id", "Term", "Searchblocks", "Creators", "Notes", "Keywords", "Creationdate", "Admin_notes", "Created_at", "Updated_at", "User"] -%>
+<%= headers.to_csv(:row_sep=>nil) %>
+<%- @admins.each do |admin| -%>
+    <%- row = [ admin.id,
+                admin.title.strip,
+                admin.searchblocks.strip.gsub(/\r\n/,' | '),
+                admin.creators.strip.gsub(/\r\n/,' | '),
+                admin.notes.strip.gsub(/\r\n/,' | '),
+                admin.keywords.strip,
+                admin.creationdate,
+                admin.admin_notes.strip.gsub(/\r\n/,' | '),
+                admin.created_at,
+                admin.updated_at,
+                admin.user_email.strip ] -%>
+    <%=   row.to_csv(:row_sep => "\r", :quote_char => '"').html_safe %>
+<%- end .html_safe? -%>

@@ -1,0 +1,9 @@
+# robots.txt
+User-agent: *
+Disallow: *?q= # blocks search results pages
+Disallow: *?f
+Disallow: /catalog/facet # blocks facet pages
+Disallow: /catalog/range_limit
+Disallow: /catalog/search_history
+
+Sitemap: https://blocks.bmi-online.nl/sitemap.xml.gz
