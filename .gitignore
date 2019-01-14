@@ -22,3 +22,4 @@
 
 /.idea
 /config/initializers/admins.rb
+/db/seeds.rb
