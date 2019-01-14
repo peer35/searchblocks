@@ -274,6 +274,7 @@ class AdminsController < ApplicationController
   end
 
   def splitblock(searchblocks)
+    # TODO: refactor to json format
     searchblocksystem = []
     searchblockcontent = []
     n = 0
