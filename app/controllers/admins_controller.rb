@@ -216,13 +216,16 @@ class AdminsController < ApplicationController
     # TODO: move to model
     keyword_sm = JSON::parse(admin.keywords)
     names_sm = JSON::parse(admin.creators)
+
     also_sm = []
     logger.debug @admin
-    also_ids = JSON::parse(admin.also)
-    also_sm = []
-    # (also store the id??)
-    also_ids.each do |id|
-      also_sm.push(Admin.find(id).title)
+
+    unless admin.also.nil?
+      also_ids = JSON::parse(admin.also)
+      # (also store the id??)
+      also_ids.each do |id|
+        also_sm.push(Admin.find(id).title)
+      end
     end
 
 
