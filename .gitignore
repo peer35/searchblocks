@@ -22,8 +22,8 @@
 
 /.idea
 
-admins.rb
-seeds.rb
+/config/initializers/admins.rb
+/db/seeds.rb
 
 /.svn
 /*/.svn

@@ -7,12 +7,12 @@ class UpdateKeywords < ActiveRecord::Migration[5.0]
       c.each do |kw|
         kw = kw.gsub('Wiley-Cochrane Library (CLib)', 'Wiley/Cochrane Library (CLib)')
         kw = kw.gsub('Clarivate Analytics-Web of Science (WoS)', 'Clarivate Analytics/Web of Science (WoS)')
-        kw = kw.gsub(/EBSCO-CINAHL/, 'EBSCO/CINAHL')
-        kw = kw.gsub(/EBSCO-PsycInfo (PI)/, 'EBSCO/PsycInfo (PI)')
-        kw = kw.gsub(/EBSCO-SportDiscus (SD)/, 'EBSCO/SportDiscus (SD)')
-        kw = kw.gsub(/OVID-ERIC/, 'OVID/ERIC')
-        kw = kw.gsub(/OVID-Pilots/, 'OVID/Pilots')
-        kw = kw.gsub(/OVID-PsycInfo (PI)/, 'OVID/PsycInfo (PI)')
+        kw = kw.gsub('EBSCO-CINAHL', 'EBSCO/CINAHL')
+        kw = kw.gsub('EBSCO-PsycInfo (PI)', 'EBSCO/PsycInfo (PI)')
+        kw = kw.gsub('EBSCO-SportDiscus (SD)', 'EBSCO/SportDiscus (SD)')
+        kw = kw.gsub('OVID-ERIC', 'OVID/ERIC')
+        kw = kw.gsub('OVID-Pilots', 'OVID/Pilots')
+        kw = kw.gsub('OVID-PsycInfo (PI)', 'OVID/PsycInfo (PI)')
         kw = kw.gsub('Web of Knowledge (Wok)-Medline', 'Web of Knowledge (Wok)/Medline')
         puts kw
         keywords.append(kw)

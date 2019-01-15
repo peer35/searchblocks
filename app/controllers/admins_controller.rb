@@ -101,6 +101,9 @@ class AdminsController < ApplicationController
   # POST /admins
   # POST /admins.json
   def create
+    params[:kw] ||= []
+    params[:nm] ||= []
+    params[:al] ||= []
     @admin = Admin.new(admin_params)
     @admin.user_id = current_user.id
     @admin.user_email = current_user.email
@@ -126,6 +129,10 @@ class AdminsController < ApplicationController
   # PATCH/PUT /admins/1
   # PATCH/PUT /admins/1.json
   def update
+    params[:kw] ||= []
+    params[:nm] ||= []
+    params[:al] ||= []
+    # TODO: serialize creators, keywords, also and searchblocks for automatic conversion to and from json
     respond_to do |format|
       searchblocks = params[:searchblocks]
       searchblocksystems = params[:searchblocksystems]
@@ -206,14 +213,18 @@ class AdminsController < ApplicationController
   end
 
   def add_to_solr(admin)
+    # TODO: move to model
     keyword_sm = JSON::parse(admin.keywords)
     names_sm = JSON::parse(admin.creators)
+    also_sm = []
+    logger.debug @admin
     also_ids = JSON::parse(admin.also)
-    also_sm=[]
+    also_sm = []
     # (also store the id??)
     also_ids.each do |id|
       also_sm.push(Admin.find(id).title)
     end
+
 
     @@solr.add :title_s => admin.title, :keyword_sm => keyword_sm, :names_sm => names_sm, :also_sm => also_sm, :notes_s => admin.notes,
                :searchblock_s => admin.searchblocks, :date_s => admin.creationdate.to_s[0, 10], :date_dt => admin.creationdate, :id => admin.id
