@@ -33,7 +33,7 @@ function replaceSemiColons() {
             for (var i = 0; i < arr.length; i++) {
 
                 var blocktmp = arr[i];
-                var arr2 = blocktmp.split(': ', 2);
+                var arr2 = blocktmp.split(':: ', 2);
                 if (arr2.length > 1) {
                     block = arr2[0] + ':<br><pre><code>' + arr2[1] + '</code></pre>';
                 } else {

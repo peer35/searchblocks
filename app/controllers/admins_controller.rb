@@ -78,6 +78,7 @@ class AdminsController < ApplicationController
   def edit
     @keyword_list = keyword_list
     @name_list = name_list
+    @title_list = Admin.all.map {|a| [a.title, a.id]}
 
     @versions = @admin.versions
     @current = @admin
@@ -100,6 +101,9 @@ class AdminsController < ApplicationController
   # POST /admins
   # POST /admins.json
   def create
+    params[:kw] ||= []
+    params[:nm] ||= []
+    params[:al] ||= []
     @admin = Admin.new(admin_params)
     @admin.user_id = current_user.id
     @admin.user_email = current_user.email
@@ -108,6 +112,7 @@ class AdminsController < ApplicationController
     respond_to do |format|
       @admin.keywords = params[:kw].to_json
       @admin.creators = params[:nm].to_json
+      @admin.also = params[:al].to_json
       @admin.searchblocks = glueblock(searchblocks, searchblocksystems)
       if @admin.save
         add_to_solr(@admin)
@@ -124,6 +129,10 @@ class AdminsController < ApplicationController
   # PATCH/PUT /admins/1
   # PATCH/PUT /admins/1.json
   def update
+    params[:kw] ||= []
+    params[:nm] ||= []
+    params[:al] ||= []
+    # TODO: serialize creators, keywords, also and searchblocks for automatic conversion to and from json
     respond_to do |format|
       searchblocks = params[:searchblocks]
       searchblocksystems = params[:searchblocksystems]
@@ -132,6 +141,7 @@ class AdminsController < ApplicationController
       @admin.searchblocks = glueblock(searchblocks, searchblocksystems)
       @admin.keywords = params[:kw].to_json
       @admin.creators = params[:nm].to_json
+      @admin.also = params[:al].to_json
       if @admin.update(admin_params)
         # update SOLR
         add_to_solr(@admin)
@@ -174,54 +184,6 @@ class AdminsController < ApplicationController
     end
   end
 
-  # GET /admins/updateall
-  def updateall
-    #add all admins blocks to the solr index with the admin id
-    #loop through admins
-    respond_to do |format|
-      Admin.all.each do |admin|
-        c = JSON::parse(admin.creators)
-        creators = []
-        unless c.blank?
-          c.each do |creator|
-            creator = creator.gsub(/^Otten R$/, 'Otten RHJ')
-            creator = creator.gsub(/^Jansma I$/, 'Jansma EP')
-            creator = creator.gsub(/^Schoonmade L$/, 'Schoonmade LJ')
-            creator = creator.gsub(/^Ket H$/, 'Ket JCF')
-            creator = creator.gsub(/^Riphagen I$/, 'Riphagen II')
-            creator = creator.gsub(/^Bramer W$/, 'Bramer WM')
-            creators.append(creator)
-          end
-        end
-
-        searchblocks = admin.searchblocks
-        searchblocks = searchblocks.gsub(/PM(.*?):/, 'PubMed\1:')
-        searchblocks = searchblocks.gsub(/EM(.*?):/, 'Embase.com\1:')
-        searchblocks = searchblocks.gsub(/WoS(.*?):/, 'Web of Science\1:')
-        searchblocks = searchblocks.gsub(/WoK(.*?):/, 'Web of Knowledge\1:')
-        searchblocks = searchblocks.gsub(/PI(.*?):/, 'PsycInfo\1:')
-        searchblocks = searchblocks.gsub(/CLib(.*?):/, 'Cochrane Library\1:')
-        searchblocks = searchblocks.gsub(/GS(.*?):/, 'Google Scholar\1:')
-
-        notes = admin.notes
-        notes = notes.gsub('PM', 'PubMed')
-        notes = notes.gsub('EM', 'Embase.com')
-        notes = notes.gsub('WoS', 'Web of Science')
-        notes = notes.gsub('WoK', 'Web of Knowledge')
-        notes = notes.gsub('PI', 'PsycInfo')
-        notes = notes.gsub('CLib', 'Cochrane Library')
-        notes = notes.gsub('GS', 'Google Scholar')
-
-        id = admin.id
-        Admin.update(id, :creators => creators.to_json, :searchblocks => searchblocks, :notes => notes)
-
-      end
-      flash[:notice] = 'Updated.'
-      format.html {redirect_to :controller => 'catalog', action: "index"}
-    end
-  end
-
-
   private
 
   def keyword_list()
@@ -251,9 +213,20 @@ class AdminsController < ApplicationController
   end
 
   def add_to_solr(admin)
+    # TODO: move to model
     keyword_sm = JSON::parse(admin.keywords)
     names_sm = JSON::parse(admin.creators)
-    @@solr.add :title_s => admin.title, :keyword_sm => keyword_sm, :names_sm => names_sm, :notes_s => admin.notes,
+    also_sm = []
+    logger.debug @admin
+    also_ids = JSON::parse(admin.also)
+    also_sm = []
+    # (also store the id??)
+    also_ids.each do |id|
+      also_sm.push(Admin.find(id).title)
+    end
+
+
+    @@solr.add :title_s => admin.title, :keyword_sm => keyword_sm, :names_sm => names_sm, :also_sm => also_sm, :notes_s => admin.notes,
                :searchblock_s => admin.searchblocks, :date_s => admin.creationdate.to_s[0, 10], :date_dt => admin.creationdate, :id => admin.id
     @@solr.commit
   end
@@ -265,7 +238,7 @@ class AdminsController < ApplicationController
       if searchblocksystems[n] == ''
         sbs[n] = sb
       else
-        sbs[n] = searchblocksystems[n] + ': ' + sb
+        sbs[n] = searchblocksystems[n] + ':: ' + sb
       end
       n = n + 1
     end
@@ -273,13 +246,14 @@ class AdminsController < ApplicationController
   end
 
   def splitblock(searchblocks)
+    # TODO: refactor to json format
     searchblocksystem = []
     searchblockcontent = []
     n = 0
     searchblocks.split(';; ').each do |searchblock|
-      if searchblock.split(': ').length > 1
-        searchblocksystem[n] = searchblock.split(': ')[0]
-        searchblockcontent[n] = searchblock.split(': ')[1]
+      if searchblock.split(':: ').length > 1
+        searchblocksystem[n] = searchblock.split(':: ')[0]
+        searchblockcontent[n] = searchblock.split(':: ')[1]
       else
         searchblocksystem[n] = ''
         searchblockcontent[n] = searchblock
