@@ -1,17 +1,11 @@
 class UpdateBlockFormatting < ActiveRecord::Migration[5.0]
   def up
     #execute "update admins set searchblocks = replace(searchblocks, ': ', ':: ')"
-    # loop through all blocks
-    # @admin.searchblocks = glueblock(searchblocks, searchblocksystems)
-    # @searchblocksystem, @searchblockcontent = splitblock(@admin.searchblocks)
-    # @admin.update
     Admin.all.each do |admin|
       searchblocksystems, searchblocks = splitblock(admin.searchblocks)
       puts admin.searchblocks
       searchblocks = glueblock(searchblocks, searchblocksystems)
       puts searchblocks
-      #id = admin.id
-      #Admin.update(id, :searchblocks => searchblocks)
       admin.update(:searchblocks => searchblocks)
     end
   end
