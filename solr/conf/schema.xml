@@ -189,7 +189,6 @@
   <copyField source="title_s" dest="title_unstem_search"/>
   <copyField source="searchblock_s" dest="searchblock_unstem_search"/>
   <copyField source="keyword_sm" dest="keyword_unstem_search"/>
-
   <!-- sort fields -->
   <copyField source="title_s" dest="title_sort"/>
   <copyField source="pub_date" dest="pub_date_sort"/>
