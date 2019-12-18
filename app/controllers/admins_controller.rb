@@ -71,6 +71,7 @@ class AdminsController < ApplicationController
     verify_user
     @keyword_list = keyword_list
     @name_list = name_list
+    @title_list = Admin.all.map {|a| [a.title, a.id]}
     @admin = Admin.new
   end
 
