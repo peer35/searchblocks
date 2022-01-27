@@ -1,4 +1,4 @@
-namespace :bnpp_tasks do
+namespace :tasks do
   desc "Reindex all records"
   task index: :environment do
     Admin.all.each do |admin|
