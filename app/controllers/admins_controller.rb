@@ -159,8 +159,8 @@ class AdminsController < ApplicationController
   # DELETE /admins/1
   # DELETE /admins/1.json
   def destroy
-    @@solr.delete_by_id @admin.id
-    @@solr.commit
+    #@@solr.delete_by_id @admin.id #moved to model
+    #@@solr.commit
 
     @admin.destroy
     respond_to do |format|

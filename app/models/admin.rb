@@ -3,6 +3,15 @@ class Admin < ApplicationRecord
   #serialize :keywords, Array
 
   after_save :update_solr
+  after_destroy :delete_from_solr
+
+  def delete_from_solr
+    solr_config = Rails.application.config_for :blacklight
+    @@solr = RSolr.connect :url => solr_config['url'] # get this from blacklight config
+
+    @@solr.delete_by_id(self.id)
+    @@solr.commit
+  end
 
   def update_solr
     admin = self
