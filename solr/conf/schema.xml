@@ -152,7 +152,7 @@
       <analyzer>
         <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords_en.txt"/>
-        <filter class="solr.StandardFilterFactory"/>
+        <!--<filter class="solr.StandardFilterFactory"/>-->
         <filter class="solr.LowerCaseFilterFactory"/>
         <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
       </analyzer>
@@ -163,7 +163,7 @@
       <analyzer>
         <!--<tokenizer class="solr.KeywordTokenizerFactory"/>-->
         <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StandardFilterFactory"/>
+<!--        <filter class="solr.StandardFilterFactory"/>-->
         <filter class="solr.LowerCaseFilterFactory"/>
         <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
       </analyzer>

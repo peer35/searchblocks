@@ -55,8 +55,8 @@ Rails.application.configure do
   # config.force_ssl = true
 
   # prevent host header injection
-  config.action_controller.default_url_options = {host: "blocks.bmi-online.nl"}
-  config.action_mailer.default_url_options = {host: "blocks.bmi-online.nl"}
+  config.action_controller.default_url_options = {host: ENV["SITE_NAME"]}
+  config.action_mailer.default_url_options = {host: ENV["SITE_NAME"]}
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.

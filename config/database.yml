@@ -30,7 +30,7 @@ production:
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  database: searchblocks_production
-  username: blacklight
+  database: <%= ENV["DB_NAME"] %>
+  username: <%= ENV["DB_USER"] %>
   password: <%= ENV["DB_PW"] %>
-  host: localhost
+  host: <%= ENV["DB_HOST"] %>

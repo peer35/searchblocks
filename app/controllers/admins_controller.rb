@@ -116,7 +116,7 @@ class AdminsController < ApplicationController
       @admin.also = params[:al].to_json
       @admin.searchblocks = glueblock(searchblocks, searchblocksystems)
       if @admin.save
-        add_to_solr(@admin)
+        #add_to_solr(@admin) #moved to model
         flash[:notice] = "Block was successfully created."
         format.html {redirect_to :controller => 'catalog', action: "show", id: @admin.id}
         format.json {render :show, status: :created, location: @admin}
@@ -145,7 +145,7 @@ class AdminsController < ApplicationController
       @admin.also = params[:al].to_json
       if @admin.update(admin_params)
         # update SOLR
-        add_to_solr(@admin)
+        #add_to_solr(@admin) #moved to model
         flash[:notice] = "Block was successfully updated."
         format.html {redirect_to :controller => 'catalog', action: "show", id: @admin.id}
         format.json {render :show, status: :ok, location: @admin}
@@ -178,7 +178,7 @@ class AdminsController < ApplicationController
     #loop through admins
     respond_to do |format|
       Admin.all.each do |admin|
-        add_to_solr(admin)
+        Admin.update_solr
       end
       flash[:notice] = 'Records reindexed.'
       format.html {redirect_to :controller => 'catalog', action: "index"}
@@ -211,25 +211,6 @@ class AdminsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def admin_params
     params.require(:admin).permit(:title, :searchblocks, :creators, :notes, :keywords, :creationdate, :admin_notes)
-  end
-
-  def add_to_solr(admin)
-    # TODO: move to model
-    keyword_sm = JSON::parse(admin.keywords)
-    names_sm = JSON::parse(admin.creators)
-    also_sm = []
-    logger.debug @admin
-    also_ids = JSON::parse(admin.also)
-    also_sm = []
-    # (also store the id??)
-    also_ids.each do |id|
-      also_sm.push(Admin.find(id).title)
-    end
-
-
-    @@solr.add :title_s => admin.title, :keyword_sm => keyword_sm, :names_sm => names_sm, :also_sm => also_sm, :notes_s => admin.notes,
-               :searchblock_s => admin.searchblocks, :date_s => admin.creationdate.to_s[0, 10], :date_dt => admin.creationdate, :id => admin.id
-    @@solr.commit
   end
 
   def glueblock(searchblocks, searchblocksystems)
