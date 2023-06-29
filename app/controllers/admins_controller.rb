@@ -178,7 +178,7 @@ class AdminsController < ApplicationController
     #loop through admins
     respond_to do |format|
       Admin.all.each do |admin|
-        Admin.update_solr
+        admin.save
       end
       flash[:notice] = 'Records reindexed.'
       format.html {redirect_to :controller => 'catalog', action: "index"}
