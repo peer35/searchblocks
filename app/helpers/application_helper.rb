@@ -14,9 +14,9 @@ module ApplicationHelper
       arr2 = v.split(':: ', 2)
 
       if (arr2.length > 1)
-        block = arr2[0] + ':<br><pre><code>' + arr2[1] + '</code></pre>'
+        block = arr2[0] + ':<br><pre>' + arr2[1] + '</pre>'
       else
-        block = '<pre><code>' + v + '</code></pre>'
+        block = '<pre>' + v + '</pre>'
       end
       newval = newval + block
     end

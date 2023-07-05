@@ -22,7 +22,6 @@ body {
     background-color: #eeeeee;
     color: #000000;
     color: rgba(0, 0, 0, 0.8);
-    font-size: 1.6em;
     font-family: 'Noto Serif', Georgia, serif;
     line-height: 1.8;
     margin: 0px;
@@ -103,25 +102,32 @@ textarea {
 }
 
 pre {
-  white-space: pre-wrap;
-  word-break: normal;
+    overflow: auto;
+    white-space: pre-wrap;
+    display:block;
+    padding:9.5px;
+    margin:0 0 10px;
+    font-size:13px;
+    line-height:1.428571429;
+    color:#333333;
+    background-color:#f5f5f5;
+    border:1px solid #ccc;
+    border-radius:4px
 }
 
-code {
-  white-space: pre;
-  word-break: normal;
-  word-wrap: normal;
+#header-navbar {
+  background-color: #fff;
 }
 
 #header-navbar .navbar-brand {
   width: 382px;
   height: 54px;
-
   background: transparent url(BMI_logo_new.jpg) no-repeat top left;
   background-size: 382px 54px;
   margin-top: 10px;
-
 }
+
+
 
 .header-title {
   margin-top: 0px;
@@ -191,7 +197,7 @@ a:hover {
   text-decoration: underline;
 }
 
-#content{
+#content, .show-document {
   background-color: white;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -258,16 +264,20 @@ a:hover {
   font-size: 0.8em;
 }
 
-.btn-primary {
+.btn-primary, .btn-secondary {
   color: #fff !important;
   /*background-color: #9FC736;*/
   background-color: #669900;
   border-color: #2e6da4;
 }
-.btn-primary:hover {
+.btn-primary:hover, .btn-secondary:hover {
   background-color: #57589C;
 }
 
 .select2 {
   width: 700px;
+}
+
+.advanced-search {
+  display: none;
 }
