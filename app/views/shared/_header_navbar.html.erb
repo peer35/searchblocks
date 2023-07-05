@@ -1,54 +1,35 @@
-<div id="header-navbar" class="navbar navbar-inverse navbar-static-top" role="navigation">
-  <!-- BEGIN .row -->
-  <div id="contact-info">
-    <div class="row">
-
-      <!-- BEGIN .content -->
-      <div class="content">
-
-        <div class="align-left">
-
-          <span class="contact-address"><i class="fa fa-map-marker"></i> p/a KNVI Verenigingsbureau, Ambachtsstraat 15, 3861 RH Nijkerk</span>
-
-          <span class="contact-email text-right"><i class="fa fa-envelope"></i> <a class="link-email" href="mailto:bestuur@bmi-online.nl" target="_blank">bestuur@bmi-online.nl</a></span>
-
-          <span class="contact-phone text-right"><i class="fa fa-phone"></i> 033- 2473427</span>
-
-        </div>
-        <!-- END .content -->
-      </div>
-
-      <!-- END .row -->
+<div id="contact-info">
+  <div class="row">
+    <div class="content">
+        <span class="contact-address"><i class="fa fa-map-marker"></i> p/a KNVI Verenigingsbureau, Ambachtsstraat 15, 3861 RH Nijkerk</span>
+        <span class="contact-email text-right"><i class="fa fa-envelope"></i> <a class="link-email" href="mailto:bestuur@bmi-online.nl" target="_blank">bestuur@bmi-online.nl</a></span>
+        <span class="contact-phone text-right"><i class="fa fa-phone"></i> 033- 2473427</span>
     </div>
-    <!-- END #contact-info -->
   </div>
+</div>
+<nav id="header-navbar" class="navbar navbar-expand-md navbar-static-top" role="navigation">
   <div class="<%= container_classes %>">
-
-    <% if Rails.env.development? %>
-      <p style="color: red; font-size: 2.0em; text-align: center;">This is the test site! Please go to
-        <a href="https://blocks.bmi-online.nl">https://blocks.bmi-online.nl</a></p>
-    <% end %>
-
+    <!--<%= link_to application_name, root_path, class: 'mb-0 navbar-brand navbar-logo' %>-->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle btn collapsed" data-toggle="collapse" data-target="#user-util-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to application_name, root_path, class: "navbar-brand" %>
-      <!--<a class="navbar-brand" href="http://bmi-online.nl">bmi-online</a>-->
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#user-util-collapse" data-bs-target="#user-util-collapse" aria-controls="user-util-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <%= link_to "", root_path, class: "navbar-brand" %>
+        <div class="header-title">Search blocks/Zoekblokken</div>
     </div>
-
-    <div class="collapse navbar-collapse" id="user-util-collapse">
-      <%= render :partial => '/user_util_links' %>
+    <div class="collapse navbar-collapse justify-content-md-end" id="user-util-collapse">
+      <%= render 'shared/user_util_links' %>
     </div>
-    <div class="header-title">Search blocks/Zoekblokken</div>
   </div>
-</div>
+</nav>
 
-<div id="search-navbar" class="navbar navbar-default navbar-static-top" role="navigation">
+<%= content_tag :div, class: 'navbar-search navbar navbar-light bg-light', role: 'navigation', aria: { label: t('blacklight.search.header') } do %>
   <div class="<%= container_classes %>">
-    <%= render_search_bar %>
+    <%= render((blacklight_config&.view_config(document_index_view_type)&.search_bar_component ||Blacklight::SearchBarComponent).new(
+          url: search_action_url,
+          advanced_search_url: search_action_url(controller: :catalog, action: 'advanced_search'),
+          params: search_state.params_for_search.except(:qt),
+          autocomplete_path: search_action_path(controller: :catalog, action: :suggest)
+          ))  %>
   </div>
-</div>
+<% end %>

@@ -16,3 +16,268 @@
  *= require select2
  *= require select2-bootstrap
  */
+
+ 
+body {
+    background-color: #eeeeee;
+    color: #000000;
+    color: rgba(0, 0, 0, 0.8);
+    font-family: 'Noto Serif', Georgia, serif;
+    line-height: 1.8;
+    margin: 0px;
+    padding: 0px;
+
+}
+
+th {
+  padding-bottom: 5px;
+}
+
+td {
+  padding-bottom: 7px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+div {
+  &.field, &.actions {
+    margin-bottom: 15px;
+  }
+}
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+
+  h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    margin-bottom: 0;
+    background-color: #c00;
+    color: #fff;
+  }
+
+  ul li {
+    font-size: 12px;
+    list-style: square;
+  }
+}
+
+label {
+  display: block;
+}
+
+textarea {
+  width: 700px;
+  min-height: 200px;
+}
+
+.admin-form input {
+  /*width: 700px;*/
+
+}
+.admin-form input,.admin-form textarea,.admin-form select {
+  font-family: "Courier New";
+}
+
+.admin-form .btn {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-weight: bold;
+}
+
+.blockForm input {
+  width: 200px;
+
+}
+.blockForm {
+  padding: 5px;
+  border: 1px solid lightgrey;
+}
+
+pre {
+    overflow: auto;
+    white-space: pre-wrap;
+    display:block;
+    padding:9.5px;
+    margin:0 0 10px;
+    font-size:13px;
+    line-height:1.428571429;
+    color:#333333;
+    background-color:#f5f5f5;
+    border:1px solid #ccc;
+    border-radius:4px
+}
+
+#header-navbar {
+  background-color: #fff;
+}
+
+#header-navbar .navbar-brand {
+  width: 382px;
+  height: 54px;
+  background: transparent url(BMI_logo_new.jpg) no-repeat top left;
+  background-size: 382px 54px;
+  margin-top: 10px;
+}
+
+
+
+.header-title {
+  margin-top: 0px;
+  font-size: 24px;
+  text-align: left;
+  font-family: 'Raleway', Arial, sans-serif;
+  font-weight: 400;
+  padding-left: 5px;
+}
+
+@media(max-width: 768px) {
+  .header-title {
+    font-size: 18px;
+  }
+ }
+
+.navbar-inverse {
+  background-color: white;
+  border: none;
+}
+
+#contact-info {
+  display: block;
+  position: relative;
+  background: rgba(0, 0, 0, .04);
+  color: rgba(0, 0, 0, .5);
+  font-size: 0.75em;
+  font-weight: 600;
+  line-height: 2;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  z-index: 8;
+
+}
+
+#contact-info .content {
+  width: 1170px;
+  /*line-height: 36px;*/
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#contact-info span i {
+  color: rgba(0, 0, 0, .2);
+  margin-right: 2px;
+}
+
+#contact-info .align-left span:nth-child(2n), #contact-info .align-left span:nth-child(3n) {
+  padding-left: 12px;
+}
+#contact-info span {
+  display: inline-block;
+  padding: 6px 0px;
+  padding-top: 6px;
+  padding-right: 0px;
+  padding-bottom: 6px;
+  padding-left: 0px;
+}
+a, a:link, a:visited {
+  color: #669900;
+  text-decoration: none;
+  word-wrap: break-word;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#content, .show-document {
+  background-color: white;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.blockForm table {
+  width: 100%;
+}
+
+.admin-form .field {
+  border: 1px dotted grey;
+  padding: 15px;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover  {
+  color: black;
+}
+.navbar-right {
+  align-self: center;
+  vertical-align: middle;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.blacklight-admins .input-group {
+  pointer-events: none;
+  tab-index: -1;
+  opacity: 0.5;
+}
+
+#documents .document .document-title-heading {
+  font-size: 1.1em;
+}
+
+.site-footer {
+  text-align: center;
+  padding-top: 20px;
+  background-color: white;
+}
+
+.footer-menu {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.site-footer li {
+  padding: 6px 0px 6px 0px;
+}
+.site-footer h6 {
+  font-family: 'Raleway';
+  font-size: 0.9em;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 0px;
+  padding-top: 0px;
+  border-bottom: none;
+}
+
+#main-container {
+  padding-bottom: 20px;
+}
+
+.license a {
+  font-size: 0.8em;
+}
+
+.btn-primary, .btn-secondary {
+  color: #fff !important;
+  /*background-color: #9FC736;*/
+  background-color: #669900;
+  border-color: #2e6da4;
+}
+.btn-primary:hover, .btn-secondary:hover {
+  background-color: #57589C;
+}
+
+.select2 {
+  width: 700px;
+}
+
+.advanced-search {
+  display: none;
+}
