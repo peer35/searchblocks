@@ -27,10 +27,6 @@ services:
     #restart: always
     build:
       context: .
-      args:
-        - APP_USER_UID=${SEARCHBLOCKS_USER_UID}
-        - APP_USER_GID=${SEARCHBLOCKS_USER_GID}
-    user: ${SEARCHBLOCKS_USER_UID}:${SEARCHBLOCKS_USER_GID}
     depends_on:
       - searchblocks-db
       - solr

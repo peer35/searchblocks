@@ -59,7 +59,7 @@ end
 
 gem 'rsolr', '>= 1.0'
 gem 'devise'
-gem 'devise-guests', '~> 0.6'
+gem 'devise-guests', '> 0.6'
 
 
 gem 'paper_trail', '>7.0'
