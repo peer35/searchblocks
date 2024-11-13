@@ -66,7 +66,7 @@ gem 'paper_trail', '>7.0'
 gem 'pg', '>0.20'
 
 gem "font-awesome-rails"
-gem "select2-rails", '<4.0.3'
+gem "select2-rails", '~>4.0.3'
 
 gem 'pundit'
 
